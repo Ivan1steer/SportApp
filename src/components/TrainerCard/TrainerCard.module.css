@@ -1,0 +1,74 @@
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+}
+
+.image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-bottom: 3px solid #4a90e2;
+}
+
+.content {
+  padding: 1.5rem;
+}
+
+.name {
+  margin: 0 0 0.5rem 0;
+  color: #2d3436;
+  font-size: 1.25rem;
+}
+
+.sports {
+  color: #4a90e2;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.rating {
+  color: #fdcb6e;
+  font-weight: 600;
+}
+
+.experience {
+  color: #636e72;
+}
+
+.achievements {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+
+.achievements li {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+.link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+.link:hover {
+  text-decoration: none;
+}
+.link:visited, .link:active {
+  color: inherit;
+}

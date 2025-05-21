@@ -1,0 +1,60 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.listContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.cardItem {
+  transition: transform 0.2s;
+}
+
+.cardItem:hover {
+  transform: translateY(-3px);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 3rem;
+  color: #636e72;
+  font-size: 1.2rem;
+  grid-column: 1 / -1;
+}
+
+.searchContainer {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #4285f4;
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.2);
+}
+
+@media (max-width: 768px) {
+  .listContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .emptyState {
+    padding: 2rem;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,108 @@
+.filtersWrapper {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.filterGroup {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1.5rem;
+}
+
+.filterGroup:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.filterTitle {
+  color: #2d3436;
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filterButton {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 24px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  color: #636e72;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.filterButton:hover {
+  background: #4a90e210;
+  border-color: #4a90e2;
+}
+
+.filterButton.active {
+  background: #4a90e2;
+  border-color: #4a90e2;
+  color: white;
+}
+
+.ratingFilter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rangeInput {
+  flex-grow: 1;
+  height: 4px;
+  background: #eee;
+  border-radius: 2px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none; 
+}
+
+.rangeInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none; 
+  width: 18px;
+  height: 18px;
+  background: #4a90e2;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.ratingValue {
+  background: #4a90e2;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  min-width: 70px;
+  text-align: center;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .filtersWrapper {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+
+  .filterButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .ratingValue {
+    font-size: 0.9rem;
+    min-width: 60px;
+  }
+}

@@ -1,0 +1,31 @@
+.toggleWrapper {
+  display: inline-flex;
+  background: #f8f9fa;
+  border-radius: 30px;
+  padding: 4px;
+  margin: 1rem 0;
+}
+
+.toggleButton {
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 26px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: transparent;
+  color: #636e72;
+  transition: all 0.2s;
+}
+
+.toggleButton.active {
+  background: #4a90e2;
+  color: white;
+  box-shadow: 0 2px 6px rgba(74, 144, 226, 0.3);
+}
+
+@media (max-width: 480px) {
+  .toggleButton {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+  }
+}
