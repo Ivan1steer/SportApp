@@ -1,87 +1,74 @@
-.wrapper {
+/* components/AuthDropdown/AuthDropdown.module.css */
+.dropdownContainer {
   position: relative;
+  display: inline-block;
 }
 
-.loginButton {
-  background: #2d3436; /* Тёмно-серый как в хедере */
-  color: #fdcb6e; /* Акцентный жёлтый из рейтингов */
-  border: 2px solid #fdcb6e;
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: all 0.3s;
+.userMenu {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.loginButton:hover {
-  background: #636e72;
-}
-
-.userButton {
-  background: #2d3436; /* Тёмно-серый как в хедере */
-  color: #fdcb6e; /* Акцентный жёлтый из рейтингов */
-  border: 2px solid #fdcb6e;
-  padding: 0.6rem 1.2rem;
-  border-radius: 25px;
   cursor: pointer;
 }
 
-.dropdown {
-  position: absolute;
-  right: 0;
-  top: 100%;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  padding: 0.5rem;
-  min-width: 200px;
-  margin-top: 0.5rem;
-  display: none;
+.userName {
+  margin-right: 8px;
+  font-weight: 500;
 }
 
-.userMenu:hover .dropdown {
+.dropdownContent {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f9f9f9;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.userMenu:hover .dropdownContent {
   display: block;
 }
 
 .dropdownItem {
   width: 100%;
-  padding: 0.8rem;
+  padding: 8px 16px;
   text-align: left;
-  background: none;
   border: none;
+  background: none;
   cursor: pointer;
-  color: #2d3436;
-  display: flex;
-  gap: 0.8rem;
-  border-radius: 4px;
 }
 
 .dropdownItem:hover {
-  background: #f8f9fa;
+  background-color: #f1f1f1;
 }
 
-.userMenu {
-  position: relative; /* Родительский контейнер */
+.loginButton {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.dropdown {
-  position: absolute;
-  top: calc(100% + 8px); /* Добавляем 8px отступа от кнопки */
-  right: 0;
-  margin-top: 0; /* Убираем лишний отступ */
-  transform: translateY(0); /* Сбрасываем трансформации */
-  z-index: 1000;
-  /* Остальные стили */
+.loginButton:hover {
+  background-color: #45a049;
 }
 
-/* Добавляем анимацию появления */
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+.dropdownItem {
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  color: #333;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
 }
 
-.dropdown {
-  animation: slideDown 0.3s ease-out;
+.dropdownItem:hover {
+  background-color: #f5f5f5;
 }

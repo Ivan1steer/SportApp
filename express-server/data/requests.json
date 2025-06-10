@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "data": {
+      "name": "Новый фитнес-клуб",
+      "address": "ул. Примерная, 15",
+      "sportTypes": ["йога", "пилатес"],
+      "tags": ["душевые"],
+      "images": ["https://example.com/image.jpg"],
+      "location": { "lat": 58.01, "lng": 56.23 },
+      "tariffs": [],
+      "description": ""
+    },
+    "status": "pending",
+    "userId": 2,
+    "createdAt": "2023-06-15"
+  }
+]

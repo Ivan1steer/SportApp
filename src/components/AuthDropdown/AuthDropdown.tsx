@@ -1,49 +1,47 @@
-// components/AuthDropdown/AuthDropdown.tsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import AuthModal from '../AuthModal/AuthModal';
-import styles from './AuthDropdown.module.css';
 import { Link } from 'react-router-dom';
+import styles from './AuthDropdown.module.css';
 
 const AuthDropdown = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { user, logout } = useAuth();
-  const [showModal, setShowModal] = useState(false);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.dropdownContainer}>
       {user ? (
         <div className={styles.userMenu}>
-          <button className={styles.userButton}>
-            👤 {user.username}
-          </button>
-          <div className={styles.dropdown}>
+          <span className={styles.userName}>{user.username}</span>
+          <div className={styles.dropdownContent}>
             {user.role === 'admin' && (
               <Link to="/admin" className={styles.dropdownItem}>
-                🛠 Админ-панель
+                Панель модерации
               </Link>
             )}
             <button 
               onClick={logout}
               className={styles.dropdownItem}
             >
-              🚪 Выйти
+              Выйти
             </button>
           </div>
         </div>
       ) : (
         <button 
-          onClick={() => setShowModal(true)}
+          onClick={() => setIsModalOpen(true)}
           className={styles.loginButton}
         >
-          🔑 Войти
+          Войти
         </button>
       )}
       
       <AuthModal 
-        isOpen={showModal}
-        onClose={() => setShowModal(false)}
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
       />
     </div>
   );
 };
+
 export default AuthDropdown;

@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "name": "Иванов Алексей Петрович",
+    "sportTypes": ["бокс", "ММА", "Боевое самбо"],
+    "rating": 4.9,
+    "experience": 8,
+    "image": "https://sun1-22.userapi.com/impg/r816cr6IYatBgCyZGTt3Ar0GArd-wkArja4PLQ/MV5PnisQaAI.jpg?size=721x721&quality=95&sign=e193e726c33b2ebe84eb12ea1247e670&c_uniq_tag=uRQqZObjm5J3fCEkdLXgL2pG1FsU0NvXp8-c9KMLJcQ&type=album",
+    "achievements": ["Чемпион России 2020", "Тренер года 2022"],
+    "description": "Профессиональный тренер по боксу с 8-летним опытом..."
+  },
+  {
+    "id": 2,
+    "name": "Смирнова Мария Игоревна",
+    "sportTypes": ["йога", "пилатес"],
+    "rating": 4.8,
+    "experience": 5,
+    "image": "https://ujur.trade-services.ru/img/cke/prepod-25.jpg",
+    "description": "Профессиональный тренер по йоге с 5-летним опытом..."
+  }
+]

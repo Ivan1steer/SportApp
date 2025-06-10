@@ -1,26 +1,29 @@
 import React, { FormEvent, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { login } from '../../api';
 import styles from './AuthModal.module.css';
+
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-const AuthModal: React.FC<AuthModalProps> =  ({ isOpen, onClose }) => {
-  const [login, setLogin] = useState('');
+
+const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { auth } = useAuth();
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (login === 'admin' && password === 'admin123') {
-      auth('admin');
+    setError('');
+    
+    try {
+      const userData = await login({ username, password });
+      auth(userData.role);
       onClose();
-    } else if (login === 'user' && password === 'user123') {
-      auth('user');
-      onClose();
-    } else {
-      setError('Неверный логин или пароль');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка авторизации');
     }
   };
 
@@ -42,9 +45,10 @@ const AuthModal: React.FC<AuthModalProps> =  ({ isOpen, onClose }) => {
           <input
             type="text"
             placeholder="Логин"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
+            className={styles.input}
           />
           <input
             type="password"
@@ -52,6 +56,7 @@ const AuthModal: React.FC<AuthModalProps> =  ({ isOpen, onClose }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className={styles.input}
           />
           
           {error && <div className={styles.error}>{error}</div>}
@@ -64,4 +69,5 @@ const AuthModal: React.FC<AuthModalProps> =  ({ isOpen, onClose }) => {
     </div>
   );
 };
+
 export default AuthModal;

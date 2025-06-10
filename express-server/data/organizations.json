@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Спорткомплекс 'Олимпия'",
+    "address": "ул. Ленина, 25",
+    "description": "Крупнейший фитнес-центр с бассейном и теннисными кортами",
+    "sportTypes": ["плавание", "теннис", "йога"],
+    "tags": ["парковка", "сауна", "детский клуб"],
+    "rating": 4.9,
+    "images": [
+      "https://avatars.mds.yandex.net/get-altay/1349040/2a00000167ab50ca701028f70df93d8bb3ba/XXXL",
+      "https://avatars.mds.yandex.net/i?id=526b2d848ccb3c57eaf8411716e34d9748c0dedb-6222399-images-thumbs&n=13"
+    ],
+    "location": {
+      "lat": 58.0134,
+      "lng": 56.2487,
+      "icon": "fitness"
+    },
+    "tariffs": [
+      { "name": "Дневной", "price": 1800, "description": "08:00-17:00" },
+      { "name": "Премиум", "price": 3500, "description": "Безлимит" }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Скалодром 'Vertical'",
+    "address": "ул. Пушкина, 46",
+    "description": "Современный скалодром для профессионалов и новичков",
+    "sportTypes": ["скалолазание"],
+    "tags": ["прокат снаряжения", "инструкторы"],
+    "rating": 4.7,
+    "images": [
+      "https://avatars.mds.yandex.net/i?id=526b2d848ccb3c57eaf8411716e34d9748c0dedb-6222399-images-thumbs&n=13"
+    ],
+    "location": {
+      "lat": 58.0089,
+      "lng": 56.2361,
+      "icon": "climbing"
+    },
+    "tariffs": [
+      { "name": "Разовое", "price": 800, "description": "2 часа" }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Ледовая арена 'Победа'",
+    "address": "пр. Комсомольский, 12",
+    "description": "Олимпийская ледовая площадка",
+    "sportTypes": ["хоккей", "фигурное катание"],
+    "tags": ["прокат коньков", "раздевалки"],
+    "rating": 4.5,
+    "images": ["https://belregion.ru/upload/iblock/5a5/_MG_2554.jpg"],
+    "location": {
+      "lat": 58.0211,
+      "lng": 56.2598,
+      "icon": "ice"
+    },
+    "tariffs": [
+      { "name": "Утренний сеанс", "price": 300, "description": "10:00-12:00" }
+    ]
+  }
+]

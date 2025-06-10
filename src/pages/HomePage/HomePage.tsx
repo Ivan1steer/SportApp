@@ -1,68 +1,92 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Filters from '../../components/Filters/Filters';
 import SportCard from '../../components/SportCard/SportCard';
 import MapView from '../../components/MapView/MapView';
 import ViewToggle from '../../components/ViewToggle/ViewToggle';
+import { fetchOrganizations, fetchFiltersData } from '../../api';
 import styles from './HomePage.module.css';
-import { Organization } from '../../types/types';
 
 const HomePage = () => {
   const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
-  const [organizations, setOrganizations] = useState<Organization[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({
-    search: '',
     selectedTags: [] as string[],
     selectedSports: [] as string[],
     minRating: 0,
   });
-  
- useEffect(() => {
-    const fetchData = async () => {
+  const [organizations, setOrganizations] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [allTags, setAllTags] = useState<string[]>([]);
+  const [allSportTypes, setAllSportTypes] = useState<string[]>([]);
+
+  // Загрузка данных фильтров при монтировании
+  useEffect(() => {
+    const loadFiltersData = async () => {
       try {
-        setLoading(true);
-        const queryParams = new URLSearchParams();
-        
-        if (filters.search) queryParams.append('search', filters.search);
-        if (filters.selectedTags.length) queryParams.append('tags', filters.selectedTags.join(','));
-        if (filters.selectedSports.length) queryParams.append('sports', filters.selectedSports.join(','));
-        if (filters.minRating) queryParams.append('minRating', filters.minRating.toString());
-        
-        const response = await fetch(`http://localhost:5000/api/organizations?${queryParams}`);
-        const data = await response.json();
+        const { allTags, allSportTypes } = await fetchFiltersData();
+        setAllTags(allTags);
+        setAllSportTypes(allSportTypes);
+      } catch (err) {
+        setError('Не удалось загрузить данные фильтров');
+        console.error(err);
+      }
+    };
+
+    loadFiltersData();
+  }, []);
+
+  // Загрузка организаций при изменении фильтров или поискового запроса
+  useEffect(() => {
+    const loadOrganizations = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await fetchOrganizations({
+          search: searchQuery,
+          tags: filters.selectedTags,
+          sports: filters.selectedSports,
+          minRating: filters.minRating
+        });
         setOrganizations(data);
-      } catch (error) {
-        console.error('Error fetching organizations:', error);
+      } catch (err) {
+        setError('Не удалось загрузить организации');
+        console.error(err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [filters]);
-  
+    loadOrganizations();
+  }, [filters, searchQuery]);
+
   return (
     <div className={styles.container}>
       <div className={styles.searchContainer}>
         <input
           type="text"
           placeholder="Поиск по названию..."
-          value={filters.search}
-          onChange={(e) => setFilters({...filters, search: e.target.value})}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
           className={styles.searchInput}
         />
       </div>
+
       <Filters 
-        sportTypes={Array.from(new Set(organizations.flatMap(org => org.sportTypes)))} 
-        tags={Array.from(new Set(organizations.flatMap(org => org.tags)))}
-        onFilterChange={(newFilters) => setFilters({...filters, ...newFilters})}
+        sportTypes={allSportTypes} 
+        tags={allTags} 
+        onFilterChange={setFilters}
       />
+
       <ViewToggle 
         viewMode={viewMode}
         onToggle={setViewMode}
       />
 
-      {viewMode === 'list' ? (
+      {loading && <div className={styles.loading}>Загрузка...</div>}
+      {error && <div className={styles.error}>{error}</div>}
+
+      {!loading && !error && (viewMode === 'list' ? (
         <div className={styles.listContainer}>
           {organizations.length > 0 ? (
             organizations.map(org => (
@@ -73,13 +97,13 @@ const HomePage = () => {
             ))
           ) : (
             <div className={styles.emptyState}>
-              😕 Ничего не найдено. Попробуйте изменить фильтры.
+              😕 Ничего не найдено. Попробуйте изменить параметры поиска или фильтры.
             </div>
           )}
         </div>
       ) : (
         <MapView organizations={organizations} />
-      )}
+      ))}
     </div>
   );
 };

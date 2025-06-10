@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       id: role === 'admin' ? 1 : 2,
       username: role,
       role,
-      ownedRequests: []
+      ownedRequests: role === 'admin' ? [] : [1, 2] // Пример заявок для пользователя
     });
   };
 

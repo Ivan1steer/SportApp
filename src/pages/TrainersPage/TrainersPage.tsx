@@ -1,8 +1,7 @@
-// pages/TrainersPage/TrainersPage.tsx
-import React, { useMemo, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TrainerCard from '../../components/TrainerCard/TrainerCard';
-import { mockTrainers } from '../../types/types';
 import Filters from '../../components/Filters/Filters';
+import { fetchTrainers, fetchTrainerSports } from '../../api';
 import styles from './TrainersPage.module.css';
 
 const TrainersPage = () => {
@@ -11,48 +10,76 @@ const TrainersPage = () => {
     selectedSports: [] as string[],
     minRating: 0,
   });
+  const [trainers, setTrainers] = useState<any[]>([]);
+  const [allSports, setAllSports] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const allSports = useMemo(() => 
-    Array.from(new Set(mockTrainers.flatMap(t => t.sportTypes))), 
-    []
-  );
+  // Загрузка видов спорта при монтировании
+  useEffect(() => {
+    const loadSports = async () => {
+      try {
+        const sports = await fetchTrainerSports();
+        setAllSports(sports);
+      } catch (err) {
+        setError('Не удалось загрузить виды спорта');
+        console.error(err);
+      }
+    };
+    loadSports();
+  }, []);
 
-const filteredTrainers = useMemo(() => 
-  mockTrainers.filter(t => {
-    const matchesSearch = t.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const hasSports = filters.selectedSports.length > 0 
-      ? filters.selectedSports.every(s => t.sportTypes.includes(s))
-      : true;
-    return hasSports && matchesSearch && t.rating >= filters.minRating;
-  }),
-  [filters, searchQuery]
-);
+  // Загрузка тренеров при изменении фильтров
+  useEffect(() => {
+    const loadTrainers = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await fetchTrainers({
+          search: searchQuery,
+          sports: filters.selectedSports,
+          minRating: filters.minRating
+        });
+        setTrainers(data);
+      } catch (err) {
+        setError('Не удалось загрузить тренеров');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadTrainers();
+  }, [filters, searchQuery]);
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Наши тренеры</h1>
-        <div className={styles.searchContainer}>
-          <input
-            type="text"
-            placeholder="Поиск по имени тренера..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className={styles.searchInput}
-          />
-        </div>
-        <Filters 
+      <div className={styles.searchContainer}>
+        <input
+          type="text"
+          placeholder="Поиск по имени тренера..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className={styles.searchInput}
+        />
+      </div>
+      
+      <Filters 
         sportTypes={allSports}
         onFilterChange={(newFilters) => 
-            setFilters({ 
+          setFilters({ 
             ...filters, 
             selectedSports: newFilters.selectedSports,
             minRating: newFilters.minRating
-            })
+          })
         }
-        />
+      />
+
+      {loading && <div className={styles.loading}>Загрузка...</div>}
+      {error && <div className={styles.error}>{error}</div>}
 
       <div className={styles.grid}>
-        {filteredTrainers.map(trainer => (
+        {trainers.map(trainer => (
           <TrainerCard key={trainer.id} trainer={trainer} />
         ))}
       </div>

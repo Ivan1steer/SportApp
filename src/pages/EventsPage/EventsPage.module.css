@@ -26,6 +26,7 @@
   background: white;
   cursor: pointer;
   transition: all 0.2s;
+  position: relative;
 }
 
 .dateButton:hover {
@@ -122,4 +123,20 @@
 }
 .link:visited, .link:active {
   color: inherit;
+}
+
+.hasEvents::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ff4757; /* Красная точка */
+}
+
+.hasEvents:hover::after {
+  background-color: #ff6b81; /* Более светлый оттенок при наведении */
 }
